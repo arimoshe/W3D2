@@ -24,7 +24,7 @@ class Board
         
         cards = cards + dup_cards
         cards = cards.shuffle
-        p cards.tally.keys.length
+        # p cards.tally.keys.length
         
 
         (0...@size).each do |i|
@@ -32,13 +32,14 @@ class Board
                 @board[i][j] = cards.pop
             end
         end
-         p @board.flatten.tally.keys.length
+        #  p @board.flatten.tally.keys.length
     end 
 
     def render
-        @board.each do |row| 
-            puts
-            row.each do |ele|
+        (0...@size).each {|k| print k.to_s + ''}
+        @board.each_with_index do |row, i| 
+            print i.to_s + ' '
+            row.each_with_index do |ele, j|
                 if ele.face_down 
                     print ele.back_value + " "
                 else
@@ -81,6 +82,8 @@ class Board
         col = guess_pos[1]
         @board[guess_pos[row][col]]
     end
+
+
 
 
 end
