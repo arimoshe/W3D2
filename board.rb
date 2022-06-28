@@ -11,22 +11,76 @@ class Board
 
     def populate
         cards = []
+        dup_cards=[]
 
         while cards.count < (@size**2)/2
             letter = ('A'..'Z').to_a.sample
-            cards << letter unless cards.include?(letter)
+            dup_letter = letter.dup
+            cards += [ Card.new(letter)] unless cards.include?(letter)
+            dup_cards += [ Card.new(dup_letter)] unless dup_cards.include?(dup_letter)
         end
-
-        puts cards
-        cards += cards
+        p dup_cards
+        p cards.length
+        
+        cards = cards + dup_cards
+        cards = cards.shuffle
+        p cards.tally.keys.length
+        
 
         (0...@size).each do |i|
             (0...@size).each do |j|
-                inst = cards.sample 
-                               cards.delete_at(cards.index(inst))
-                @board[i][j] = inst
+                @board[i][j] = cards.pop
             end
         end
+         p @board.flatten.tally.keys.length
     end 
+
+    def render
+        @board.each do |row| 
+            puts
+            row.each do |ele|
+                if ele.face_down 
+                    print ele.back_value + " "
+                else
+                    print ele.to_s + " "
+                end
+            end
+        end
+        return
+    end
+
+    def won?
+         @board.each do |row| 
+            puts
+            row.each do |ele|
+                if ele.face_down 
+                    return false
+                end
+            end
+        end
+        return true
+    end
+
+    def reveal(guessed_pos)
+        row = guessed_pos[0]
+        col = guessed_pos[1]
+        if @board[row][col].face_down
+            @board[row][col].reveal
+            return @board[row][col].face_value
+        end
+    end
+
+    def [](guess_pos)
+        row = guess_pos[0]
+        col = guess_pos[1]
+        @board[guess_pos[row][col]]
+    end
+
+     def []=(guess_pos)
+        row = guess_pos[0]
+        col = guess_pos[1]
+        @board[guess_pos[row][col]]
+    end
+
 
 end

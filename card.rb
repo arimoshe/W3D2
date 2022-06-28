@@ -2,6 +2,9 @@ class Card
 
     @@CARDS = ('A'..'Z').to_a
 
+
+    attr_reader :face_down, :face_value, :back_value
+
     def possibleCards
         @@CARDS
     end
