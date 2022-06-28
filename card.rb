@@ -1,5 +1,11 @@
 class Card
 
+    @@CARDS = ('A'..'Z').to_a
+
+    def possibleCards
+        @@CARDS
+    end
+
     def initialize(face_value)
         @face_down = true
         @face_value = face_value
