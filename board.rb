@@ -75,7 +75,7 @@ class Board
     def [](guess_pos)
         row = guess_pos[0]
         col = guess_pos[1]
-        @board[guess_pos[row][col]]
+        @board[row][col]
     end
 
     #  def []=(guess_pos)

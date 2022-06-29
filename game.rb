@@ -1,5 +1,5 @@
 require_relative "board.rb"
-
+require "byebug"
 
 class Game
     def initialize
@@ -15,21 +15,23 @@ class Game
             input = gets.chomp
             @guess_pos = input.split(",").map(&:to_i)
             if @board[@guess_pos].face_down
-                @board.reveal(guess_pos)
+                @board.reveal(@guess_pos)
                 @board.render
-                @previous_guess = @guessed_pos
+                @previous_guess = @guess_pos
             end
             puts "Please enter the position of the card you'd like to flip (e.g. '1, 2')"
             input2 = gets.chomp
-            @guess_pos = input.split(",")
-            if @board[guess_pos].face_down
-                @board.reveal(guess_pos)
-                if @board[@previous_guess].face_value  == @board[guess_pos].face_value
+            @guess_pos = input2.split(",").map(&:to_i)
+            if @board[@guess_pos].face_down
+                @board.reveal(@guess_pos)
+                @board.render
+                if @board[@previous_guess].face_value  == @board[@guess_pos].face_value
                     puts "It's a match!"
                     @previous_guess = ""
                 else
-                    sleep(4)
                     puts "Try Again"
+                    sleep(4)
+                    
                     @board[@previous_guess].hide
                     @board[@guess_pos].hide
                 end
