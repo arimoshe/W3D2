@@ -29,8 +29,8 @@ class Card
         @face_value.to_s
     end
 
-    def ==(value)
-        self.to_s == value.to_s
+    def ==(inst)
+        self.to_s == inst.to_s
        
     end
 

@@ -36,6 +36,7 @@ class Board
     end 
 
     def render
+        system("clear")
         (0...@size).each {|k| print k.to_s + ''}
         @board.each_with_index do |row, i| 
             print i.to_s + ' '
@@ -77,11 +78,11 @@ class Board
         @board[guess_pos[row][col]]
     end
 
-     def []=(guess_pos)
-        row = guess_pos[0]
-        col = guess_pos[1]
-        @board[guess_pos[row][col]]
-    end
+    #  def []=(guess_pos)
+    #     row = guess_pos[0]
+    #     col = guess_pos[1]
+    #     @board[guess_pos[row][col]]
+    # end
 
 
 
